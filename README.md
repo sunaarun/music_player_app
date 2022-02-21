@@ -1,6 +1,11 @@
 # music_player_app
 
-A new Flutter project.
+A new Flutter project that plays an **Audio** file from Assets with the help of **AudioCache** and **Audioplayer** in **audioplayers** plugin.
+
+
+
+![t](https://user-images.githubusercontent.com/36349126/154931123-aba7376f-4040-4891-9e4f-e66bbc00c511.png)
+
 
 ## Getting Started
 
