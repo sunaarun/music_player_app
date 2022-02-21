@@ -2,6 +2,8 @@
 
 A new Flutter project that plays an **Audio** file from Assets with the help of **AudioCache** and **Audioplayer** in **audioplayers** plugin.
 
+You can watch the episode on **YouTube**, link : https://youtu.be/Vp4e6wVhBZM
+
 
 
 ![t](https://user-images.githubusercontent.com/36349126/154931123-aba7376f-4040-4891-9e4f-e66bbc00c511.png)
