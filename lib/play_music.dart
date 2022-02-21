@@ -25,10 +25,13 @@ class _PlayMusicState extends State<PlayMusic> {
   }
   setUp(){
    player.onAudioPositionChanged.listen((d) {
+     // Give us the current position of the Audio file
      setState(() {
        currentPostion = d;
      });
+
      player.onDurationChanged.listen((d) {
+       //Returns the duration of the audio file
        setState(() {
          musicLength= d;
        });
@@ -112,15 +115,17 @@ class _PlayMusicState extends State<PlayMusic> {
     );
   }
   playMusic()
-  {
+  { // t play the Audio
     cache.play('am.mp3');
   }
   stopMusic()
   {
+    // to pause the Audio
     player.pause();
   }
   seekTo(int sec)
   {
+    // To seek the audio to a new position
     player.seek(Duration(seconds: sec));
   }
 }
