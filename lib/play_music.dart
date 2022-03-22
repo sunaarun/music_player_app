@@ -14,13 +14,16 @@ class _PlayMusicState extends State<PlayMusic> {
   bool isPlaying =false;
    Duration currentPostion = Duration();
    Duration musicLength = Duration();
+   int index =0;
+   List<String> mylist= ['a.mp3','b.mp3','c.mp3', 'd.mp3', 'e.mp3'];
    @override
   void initState() {
     // TODO: implement initState
     super.initState();
     player = AudioPlayer();
     cache = AudioCache(fixedPlayer: player);
-    cache.load('am.mp3');
+    index =0;
+   // cache.loadAll(['1.mp3','2.mp3','3.mp3', '4.mp3', '5.mp3']);
     setUp();
   }
   setUp(){
@@ -71,14 +74,26 @@ class _PlayMusicState extends State<PlayMusic> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              IconButton(onPressed: (){
-                if(currentPostion.inSeconds ==0 || currentPostion.inSeconds <10){
-                  seekTo(0);
-                }
-                else if(currentPostion.inSeconds >10){
-                  seekTo(currentPostion.inSeconds -10);
-                }
-              }, icon: Icon(Icons.first_page), iconSize: 35,),
+              IconButton(
+                icon: Icon(Icons.first_page), iconSize: 35,
+                onPressed: (){
+                  if(index>0) {
+                    setState(() {
+                      index--;
+                      isPlaying= true;
+                      print('$index');
+                    });
+                    cache.play(mylist[index]);
+                  }
+                  else{
+                    setState(() {
+                      isPlaying= true;
+
+                    });
+                    print('$index');
+                    cache.play(mylist[index]);
+                  }
+              }, ),
               IconButton(onPressed: (){
                if(isPlaying)
                  {
@@ -91,41 +106,58 @@ class _PlayMusicState extends State<PlayMusic> {
                  setState(() {
                    isPlaying = true;
                  });
-                 playMusic();
+                 playMusic(mylist[index]);
                }
               },
-                icon: isPlaying?Icon(Icons.pause): Icon(Icons.play_arrow), iconSize: 35,),
-              IconButton(onPressed: (){
-                if(currentPostion < musicLength - Duration(seconds: 10)){
-                  seekTo(currentPostion.inSeconds + 10);
-                }
-                else {
-                  seekTo(musicLength.inSeconds);
-                  setState(() {
-                    isPlaying = false;
-                  });
-                  player.stop();
-                }
+                icon: isPlaying?Icon(Icons.pause):
+                Icon(Icons.play_arrow), iconSize: 35,),
 
-              }, icon: Icon(Icons.last_page), iconSize: 35,)
+              IconButton(
+                icon: Icon(Icons.last_page), iconSize: 35,
+                onPressed: (){
+                     if(index < mylist.length-1 )
+                  {  print('$index');
+                  setState(() {
+                    index=index+1;
+                    isPlaying=true;
+                  });
+                  print('$index');
+                  cache.play(mylist[index]);
+                  }
+                  else {
+                    setState(() {
+                      index=0;
+                      isPlaying=true;
+                    });
+                    print("$index");
+                    cache.play(mylist[index]);
+                  }
+                },
+               )
             ],
-          )
+          ),
+          Text('${mylist[index]}')
         ],
       ),
     );
   }
-  playMusic()
-  { // t play the Audio
-    cache.play('am.mp3');
+
+  playMusic(String song)
+  { // to play the Audio
+     cache.play(song);
   }
   stopMusic()
-  {
-    // to pause the Audio
+  {// to pause the Audio
     player.pause();
   }
   seekTo(int sec)
-  {
-    // To seek the audio to a new position
+  {// To seek the audio to a new position
     player.seek(Duration(seconds: sec));
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    player.dispose();
   }
 }
