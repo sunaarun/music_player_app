@@ -40,8 +40,8 @@ class _PlayLocalFileState extends State<PlayLocalFile> {
                // await _loadFile();
                 final result = await openFile();
                 if (result != null) {
-                  await cache.play(result.toString());
-                  //await filePlayer.play(result, isLocal: true);
+                 // await cache.play(result.toString());
+                  await filePlayer.play(result, isLocal: true);
                 } else {
                   return null;
                 }
